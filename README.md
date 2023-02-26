@@ -1,4 +1,4 @@
-# Terminal for connection database
+# Terminal for connection database (v1.0)
 
 Terminal for using MySQL database in Python.
 
