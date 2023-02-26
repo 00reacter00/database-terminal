@@ -60,9 +60,23 @@ if __name__ == '__main__':
                 """                
                 with connection.cursor() as cursor: # connection.cursor => cursor
                     drop_table_sql = f"DROP TABLE `{table_name}`;" # sql request
-                    cursor.execute(drop_table_sql)  # send request
+                    cursor.execute(drop_table_sql) # send request
                     connection.commit() # commit request
                     print(f"drop table '{table_name}' successfully✅")
+
+            def insert_data(table_name: str, columns: str, values: str):
+                """Function to insert data
+
+                Args:
+                    table_name (str): Name of the table,
+                    columns (str): Columns of the table,
+                    values (str): Values of the row.
+                """                
+                with connection.cursor() as cursor: # connection.cursor => cursor
+                    drop_table_sql = f"INSERT INTO `{table_name}`{columns} VALUES {values};" # sql request
+                    cursor.execute(drop_table_sql) # send request
+                    connection.commit() # commit request
+                    print(f"insert data '{table_name}' successfully✅")
         finally:
             connection.close()  # close connection
     except Exception as e:
