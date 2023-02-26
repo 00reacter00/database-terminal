@@ -42,6 +42,18 @@ if __name__ == '__main__':
                     data = cursor.fetchall() # fetch data from DB
                     for row in data: # table row output
                         print(row)
+
+            def drop_table(table_name: str):
+                """Function to drop table
+
+                Args:
+                    table_name (str): Name of the table.
+                """                
+                with connection.cursor() as cursor: # connection.cursor => cursor
+                    drop_table_sql = f"DROP TABLE `{table_name}`;" # sql request
+                    cursor.execute(drop_table_sql)  # send request
+                    connection.commit() # commit request
+                    print(f"drop table '{table_name}' successfully✅")
         finally:
             connection.close()  # close connection
     except Exception as e:
