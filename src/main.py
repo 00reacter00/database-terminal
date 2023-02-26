@@ -2,11 +2,11 @@ import pymysql
 from config import host, user, password, database
 
 if __name__ == '__main__':
-    print(f"""Profile: 
-              > host: {host}
-              > database: {database}
-              > user: {user}
-              > password: {len(password)}""")
+    print('Profile: 💻')
+    print(f"> host: {host} 🌐")
+    print(f"> database: {database} 📁")
+    print(f"> user: {user} 🙍‍")
+    print('> password:', '*' * len(password), '🔒')
     print('—' * 40)
 
     print(f"connecting to database '{database}'⏳")
@@ -115,57 +115,56 @@ if __name__ == '__main__':
 
                 match find_command[0]: # interpreter
                     case 'help':
-                        print("""Commands:
-                                 create_table - Command to create table,
-                                 view_table - Command to view table,
-                                 drop_table - Command to drop table,
-                                 insert_data - Command to insert data,
-                                 update_data - Command to update data,
-                                 delete_data - Command to delete data,
-                                 exit - Command to exit terminal.
-
-                                 (command) info - info about command
-                        """)
+                        print('Commands:')
+                        print('* create_table - Command to create table,')
+                        print('* view_table - Command to view table,')
+                        print('* drop_table - Command to drop table,')
+                        print('* insert_data - Command to insert data,')
+                        print('* update_data - Command to update data,')
+                        print('* delete_data - Command to delete data,')
+                        print('* exit - Command to exit terminal.')
+                        print('')
+                        print('(command) info - info about command')
                     case 'create_table':
-                        find_params = find_command.split(" ", 2)
+                        find_params = command.split(" ", 2)
                         if find_params[1] == 'info':
                             print('create_table => params: table_name, columns💡')
                         else:
                             create_table(find_params[1], find_params[2])
                     case 'view_table':
-                        find_params = find_command.split(" ", 1)
+                        find_params = command.split(" ", 1)
                         if find_params[1] == 'info':
                             print('view_table => params: table_name💡')
                         else:
                             view_table(find_params[1])
                     case 'drop_table':
-                        find_params = find_command.split(" ", 1)
+                        find_params = command.split(" ", 1)
                         if find_params[1] == 'info':
                             print('drop_table => params: table_name💡')
                         else:
                             drop_table(find_params[1])
                     case 'insert_data':
-                        find_params = find_command.split(" ", 3)
+                        find_params = command.split(" ", 3)
                         if find_params[1] == 'info':
                             print('insert_data => params: table_name, columns, data💡')
                         else:
                             insert_data(find_params[1], find_params[2], find_params[3])
                     case 'update_data':
-                        find_params = find_command.split(" ", 3)
+                        find_params = command.split(" ", 3)
                         if find_params[1] == 'info':
                             print('updata_data => params: table_name, id, data💡')
                         else:
-                            update_data(find_params[1], find_params[2], find_params[3])
+                            update_data(find_params[1], int(find_params[2]), find_params[3])
                     case 'delete_data':
-                        find_params = find_command.split(" ", 2)
+                        find_params = command.split(" ", 2)
                         if find_params[1] == 'info':
                             print('delete_data => params: table_name, id💡')
                         else:
-                            insert_data(find_params[1], find_params[2])
+                            insert_data(find_params[1], int(find_params[2]))
                     case 'exit':
                         break
                     case _:
-                        print(f'invalid command: {find_command[0]}❌')
+                        print(f'invalid command: {command[0]}❌')
         finally:
             print('connection closed⛔')
             connection.close()  # close connection
