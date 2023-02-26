@@ -25,6 +25,8 @@ if __name__ == '__main__':
 
         try:
             # command functions & interpreter
+            """FUNCTIONS"""
+
             def create_table(table_name: str, columns: str):
                 """Function to create table
 
@@ -104,7 +106,68 @@ if __name__ == '__main__':
                     cursor.execute(delete_data_sql) # send request
                     connection.commit() # commit request
                     print(f"delete data '{table_name}' successfully✅")
+
+            """INTERPRETER"""
+
+            while True:
+                command = input('please, input command (help): ') # input
+                find_command = command.split() # find commands
+
+                match find_command[0]: # interpreter
+                    case 'help':
+                        print("""Commands:
+                                 create_table - Command to create table,
+                                 view_table - Command to view table,
+                                 drop_table - Command to drop table,
+                                 insert_data - Command to insert data,
+                                 update_data - Command to update data,
+                                 delete_data - Command to delete data,
+                                 exit - Command to exit terminal.
+
+                                 (command) info - info about command
+                        """)
+                    case 'create_table':
+                        find_params = find_command.split(" ", 2)
+                        if find_params[1] == 'info':
+                            print('create_table => params: table_name, columns💡')
+                        else:
+                            create_table(find_params[1], find_params[2])
+                    case 'view_table':
+                        find_params = find_command.split(" ", 1)
+                        if find_params[1] == 'info':
+                            print('view_table => params: table_name💡')
+                        else:
+                            view_table(find_params[1])
+                    case 'drop_table':
+                        find_params = find_command.split(" ", 1)
+                        if find_params[1] == 'info':
+                            print('drop_table => params: table_name💡')
+                        else:
+                            drop_table(find_params[1])
+                    case 'insert_data':
+                        find_params = find_command.split(" ", 3)
+                        if find_params[1] == 'info':
+                            print('insert_data => params: table_name, columns, data💡')
+                        else:
+                            insert_data(find_params[1], find_params[2], find_params[3])
+                    case 'update_data':
+                        find_params = find_command.split(" ", 3)
+                        if find_params[1] == 'info':
+                            print('updata_data => params: table_name, id, data💡')
+                        else:
+                            update_data(find_params[1], find_params[2], find_params[3])
+                    case 'delete_data':
+                        find_params = find_command.split(" ", 2)
+                        if find_params[1] == 'info':
+                            print('delete_data => params: table_name, id💡')
+                        else:
+                            insert_data(find_params[1], find_params[2])
+                    case 'exit':
+                        break
+                    case _:
+                        print(f'invalid command: {find_command[0]}❌')
         finally:
+            print('connection closed⛔')
             connection.close()  # close connection
     except Exception as e:
         print(f'failed to connect: {e}❌')
