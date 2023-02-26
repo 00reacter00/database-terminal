@@ -2,6 +2,13 @@ import pymysql
 from config import host, user, password, database
 
 if __name__ == '__main__':
+    print(f"""Profile: 
+              > host: {host}
+              > database: {database}
+              > user: {user}
+              > password: {len(password)}""")
+    print('—' * 40)
+
     print(f"connecting to database '{database}'⏳")
 
     try:
@@ -14,7 +21,7 @@ if __name__ == '__main__':
         )
 
         print('successfully connected✅')
-        print('=' * 20)
+        print('—' * 40)
 
         try:
             # command functions & interpreter
@@ -27,8 +34,9 @@ if __name__ == '__main__':
                 """                
                 with connection.cursor() as cursor: # connection.cursor => cursor
                     create_table_sql = f"CREATE TABLE `{table_name}`{columns};" # sql request
-                    cursor.execute(create_table_sql)  # create table
-                    print('create table successfully✅')
+                    cursor.execute(create_table_sql)  # send request
+                    connection.commit() # commit request
+                    print(f"create table '{table_name}' successfully✅")
 
             def view_table(table_name: str):
                 """Function to view table
@@ -38,7 +46,8 @@ if __name__ == '__main__':
                 """                
                 with connection.cursor() as cursor: # connection.cursor => cursor
                     view_table_sql = f"SELECT * FROM `{table_name}`;" # sql request
-                    cursor.execute(view_table_sql)  # create table
+                    cursor.execute(view_table_sql)  # send request
+                    connection.commit() # commit request
                     data = cursor.fetchall() # fetch data from DB
                     for row in data: # table row output
                         print(row)
@@ -57,4 +66,4 @@ if __name__ == '__main__':
         finally:
             connection.close()  # close connection
     except Exception as e:
-        print(f'failed to connect: {e}⛔')
+        print(f'failed to connect: {e}❌')
