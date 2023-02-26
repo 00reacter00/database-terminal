@@ -2,7 +2,7 @@ import pymysql
 from config import host, user, password, database
 
 if __name__ == '__main__':
-    print(f"connecting to database '{database}'...")
+    print(f"connecting to database '{database}'⏳")
 
     try:
         connection = pymysql.connect(
@@ -13,13 +13,24 @@ if __name__ == '__main__':
             cursorclass=pymysql.cursors.DictCursor
         )
 
-        print('successfully connected.')
+        print('successfully connected✅')
         print('=' * 20)
 
         try:
             # command functions & interpreter
-            pass
+            def create_table(table_name: str, columns: str):
+                """Function to create table
+
+                Args:
+                    table_name (str): Name of the table,
+                    columns (str): Columns of the table.
+                """                
+
+                with connection.cursor() as cursor: # connection.cursor => cursor
+                    create_table_sql = f"CREATE TABLE `{table_name}`{columns};" # sql request
+                    cursor.execute(create_table_sql)  # create table
+                    print('create table successfully✅')
         finally:
             connection.close()  # close connection
     except Exception as e:
-        print(f'failed to connect: {e}')
+        print(f'failed to connect: {e}⛔')
