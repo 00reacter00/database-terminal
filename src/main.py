@@ -90,7 +90,20 @@ if __name__ == '__main__':
                     update_data_sql = f"UPDATE `{table_name}` SET {values} WHERE id={id};" # sql request
                     cursor.execute(update_data_sql) # send request
                     connection.commit() # commit request
-                    print(f"uodate data '{table_name}' successfully✅")
+                    print(f"update data '{table_name}' successfully✅")
+            
+            def delete_data(table_name: str, id: str):
+                """Function to delete data
+
+                Args:
+                    table_name (str): Name of the table,
+                    id (int): Id of the row.
+                """                
+                with connection.cursor() as cursor: # connection.cursor => cursor
+                    delete_data_sql = f"DELETE FROM `{table_name}` WHERE id={id};" # sql request
+                    cursor.execute(delete_data_sql) # send request
+                    connection.commit() # commit request
+                    print(f"delete data '{table_name}' successfully✅")
         finally:
             connection.close()  # close connection
     except Exception as e:
