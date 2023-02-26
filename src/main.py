@@ -73,10 +73,24 @@ if __name__ == '__main__':
                     values (str): Values of the row.
                 """                
                 with connection.cursor() as cursor: # connection.cursor => cursor
-                    drop_table_sql = f"INSERT INTO `{table_name}`{columns} VALUES {values};" # sql request
-                    cursor.execute(drop_table_sql) # send request
+                    insert_data_sql = f"INSERT INTO `{table_name}`{columns} VALUES {values};" # sql request
+                    cursor.execute(insert_data_sql) # send request
                     connection.commit() # commit request
                     print(f"insert data '{table_name}' successfully✅")
+
+            def update_data(table_name: str, id: int, values: str):
+                """Function to update data
+
+                Args:
+                    table_name (str): Name of the table,
+                    id (int): Id of the row,
+                    values (str): Values of the row.
+                """                
+                with connection.cursor() as cursor: # connection.cursor => cursor
+                    update_data_sql = f"UPDATE `{table_name}` SET {values} WHERE id={id};" # sql request
+                    cursor.execute(update_data_sql) # send request
+                    connection.commit() # commit request
+                    print(f"uodate data '{table_name}' successfully✅")
         finally:
             connection.close()  # close connection
     except Exception as e:
